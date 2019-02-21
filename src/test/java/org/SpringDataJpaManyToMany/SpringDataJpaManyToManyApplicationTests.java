@@ -1,9 +1,9 @@
-package org.HibernateManyToMany;
+package org.SpringDataJpaManyToMany;
 
-import org.HibernateManyToMany.entity.Author;
-import org.HibernateManyToMany.entity.Book;
-import org.HibernateManyToMany.repository.AuthorRepository;
-import org.HibernateManyToMany.repository.BookRepository;
+import org.SpringDataJpaManyToMany.entity.Author;
+import org.SpringDataJpaManyToMany.entity.Book;
+import org.SpringDataJpaManyToMany.repository.AuthorRepository;
+import org.SpringDataJpaManyToMany.repository.BookRepository;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,8 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class HibernateManyToManyApplicationTests {
-
+public class SpringDataJpaManyToManyApplicationTests {
 
 	@Autowired
 	BookRepository bookRepository;
@@ -40,8 +39,6 @@ public class HibernateManyToManyApplicationTests {
 		assertThat(authors != null).isTrue();
 		assertThat(authors.size() == 3).isTrue();
 
-
-
 		Stream.of(new Book("Сборник рассказов",
 					new HashSet<Author>(){{
 						add(authors.get(0));
@@ -55,7 +52,6 @@ public class HibernateManyToManyApplicationTests {
 						new HashSet<Author>(){{
 							add(authors.get(0));
 						}})
-
 					)
 				.forEach(obj -> {
 					bookRepository.save(obj);
@@ -63,9 +59,6 @@ public class HibernateManyToManyApplicationTests {
 		List<Book> books = bookRepository.findAll();
 		assertThat(books != null).isTrue();
 		assertThat(books.size() == 3).isTrue();
-
-
-
 	}
 
 	@Test
@@ -77,29 +70,21 @@ public class HibernateManyToManyApplicationTests {
 		assertThat(book.getAuthors().contains(authorRepository.getOneByName("Пушкин")));
 		assertThat(book.getAuthors().contains(authorRepository.getOneByName("Тургенев")));
 
-
 		Author author = authorRepository.getOneByName("Пушкин");
 		assertThat(author.getBooks().size() == 2);
 		assertThat(author.getBooks().contains(bookRepository.findOneByName("Сборник рассказов")));
 		assertThat(author.getBooks().contains(bookRepository.findOneByName("Сказки")));
-
-
-
 	}
-
 
 	@Test
 	public void test3JpaChange() {
 		//Update
 		Book book = bookRepository.findOneByName("Сборник рассказов");
 		book.setName("Сборник рассказов и сказок");
-
 		Author author = new Author("Чехов");
 		authorRepository.save(author);
-
 		book.addAuthor(author);
 		bookRepository.save(book);
-
 		Book changedBook = bookRepository.findOneByName("Сборник рассказов и сказок");
 		assertThat(changedBook).isEqualTo(book);
 	}
@@ -114,6 +99,4 @@ public class HibernateManyToManyApplicationTests {
 		authorRepository.deleteAll(authorsForDelete);
 		assertThat(authorRepository.findAll().size() == 0).isTrue();
 	}
-
-
 }

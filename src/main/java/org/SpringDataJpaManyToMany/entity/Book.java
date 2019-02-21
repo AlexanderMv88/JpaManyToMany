@@ -1,4 +1,4 @@
-package org.HibernateManyToMany.entity;
+package org.SpringDataJpaManyToMany.entity;
 
 
 import javax.persistence.*;
@@ -20,7 +20,6 @@ public class Book {
     @JoinTable(name = "book_author", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"))
     private Set<Author> authors;
-
 
     public Long getId() {
         return id;

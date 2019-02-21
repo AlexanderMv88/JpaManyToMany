@@ -1,4 +1,4 @@
-package org.HibernateManyToMany.entity;
+package org.SpringDataJpaManyToMany.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -26,7 +26,6 @@ public class Author {
         this.books = books;
     }
 
-
     public Long getId() {
         return id;
     }
@@ -42,8 +41,6 @@ public class Author {
     public void setName(String name) {
         this.name = name;
     }
-
-
 
     public Author(String name) {
         this.name = name;

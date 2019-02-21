@@ -1,9 +1,7 @@
-package org.HibernateManyToMany.repository;
+package org.SpringDataJpaManyToMany.repository;
 
-import org.HibernateManyToMany.entity.Author;
+import org.SpringDataJpaManyToMany.entity.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.Set;
 
 public interface AuthorRepository extends JpaRepository<Author, Long> {
     Author getOneByName(String name);
